@@ -7,8 +7,9 @@ import lombok.ToString;
 @ToString
 public class Employee {
     private Integer empId;
-    private String  fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
     private String email;
 
 }
+

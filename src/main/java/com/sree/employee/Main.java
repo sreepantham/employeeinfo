@@ -3,26 +3,56 @@ package com.sree.employee;
 import com.sree.employee.model.Employee;
 import com.sree.employee.service.EmployeeService;
 import com.sree.employee.util.EmployeeUtil;
+import lombok.extern.log4j.Log4j;
 
+import java.util.List;
 
+@Log4j
 public class Main {
-    public static void main(String[] args){
-        EmployeeService empService=new EmployeeService();
-        empService.addEmployee(addEmployee(765,"Druvitha","Thota","druvitha@gmail.com"));
-        empService.addEmployee(addEmployee(123,"Jasmitha","Thota","jasmitha@gmail.com"));
-        System.out.println(("Employee Map Size"+ EmployeeUtil.empMap.size()));
 
+    public static void main(String[] args) {
+        try {
+            EmployeeService empService = new EmployeeService();
+            empService.addEmployee(createEmployee(765, "Druvitha", "Thota", "druvitha@gmail.com"));
+            empService.addEmployee(createEmployee(345, "Jasmitha", "Thota", "jasi@gmail.com"));
+            empService.addEmployee(createEmployee(254, "Jasmi", "Thota", "jasi@gmail.com"));
+            empService.addEmployee(createEmployee(258, "Jasmi", "Thota", "jasi@gmail.com"));
+            empService.addEmployee(createEmployee(345, "Jasmi", "Thota", "jasi@gmail.com"));
+            log.info("Employee Map Size::::" + EmployeeUtil.empMap.size());
+            try {
+                Employee emp1 = empService.getEmployee(258);
+                log.info(emp1);
+                Employee emp2=empService.updateEmployee(258,createEmployee(777,"James","Kulla","kulla@gmail.com"));
+                List<Employee> empList=empService.getAllEmployees();
+                for(Employee emp6:empList){
+                    log.info("Employee from GetAll"+emp6);
+                }
+                log.info(emp2);
+                String status= empService.deleteEmployee(99999);
+
+                log.info(status);
+
+
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+
+
+            //  System.out.println(empService.getEmployee(254).toString());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
-    static Employee addEmployee(Integer empId,String fName,String lName,String email){
-        Employee emp=new Employee();
+
+    static Employee createEmployee(Integer empId, String firstName, String lastName, String email) {
+        Employee emp = new Employee();
         emp.setEmpId(empId);
-        emp.setFName(fName);
-        emp.setLName(lName);
+        emp.setFirstName(firstName);
+        emp.setLastName(lastName);
         emp.setEmail(email);
 
         return emp;
-    }
-   // static Employee getEmployee(Integer empId,String fName,String lName,String email){
 
     }
 }
